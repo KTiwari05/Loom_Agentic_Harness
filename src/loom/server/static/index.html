@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loom</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ── sidebar ─────────────────────────────────────────────────────────── -->
+  <aside id="sidebar">
+    <button id="btn-new" class="side-btn primary">＋ New session</button>
+    <button id="btn-artifacts" class="side-btn">◈ Artifacts</button>
+    <button id="btn-settings" class="side-btn">☰ Customize</button>
+
+    <div class="recents-head">Recents</div>
+    <div id="recents" class="recents"></div>
+
+    <div id="me" class="me">
+      <span class="avatar" id="me-avatar">L</span>
+      <span id="me-name">Loom</span>
+      <span class="me-sub">· local</span>
+    </div>
+  </aside>
+
+  <!-- ── main ────────────────────────────────────────────────────────────── -->
+  <main id="main">
+
+    <!-- home / dashboard -->
+    <section id="view-home" class="view">
+      <div class="home-wrap">
+        <h1 class="greeting"><span class="spark">✳</span> <span id="greeting-text">What’s up next?</span></h1>
+        <div id="key-banner" class="key-banner hidden">
+          No API key configured yet — open <a href="#" id="key-banner-link">Customize</a> and paste a key
+          from any provider (OpenRouter, Anthropic, OpenAI, DeepSeek…).
+        </div>
+        <div class="stats-card">
+          <div class="stats-tabs">
+            <span class="stats-tab active">Overview</span>
+            <span class="stats-range">All time</span>
+          </div>
+          <div id="stat-grid" class="stat-grid"></div>
+          <div id="heatmap" class="heatmap"></div>
+          <div id="fun-line" class="fun-line"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- chat session -->
+    <section id="view-session" class="view hidden">
+      <div class="session-head">
+        <div>
+          <div id="session-title" class="session-title"></div>
+          <div id="session-sub" class="session-sub"></div>
+        </div>
+        <div id="session-cost" class="session-cost"></div>
+      </div>
+      <div id="tasks-panel" class="tasks-panel hidden">
+        <div id="tasks-head" class="tasks-head">☰ Tasks <span id="tasks-count"></span></div>
+        <div id="tasks-list" class="tasks-list"></div>
+      </div>
+      <div id="transcript" class="transcript"></div>
+    </section>
+
+    <!-- artifacts -->
+    <section id="view-artifacts" class="view hidden">
+      <div class="page-wrap">
+        <h2>Artifacts</h2>
+        <p class="dim">Every file the agent created or edited, across all sessions. Click to preview.</p>
+        <div id="artifact-list" class="artifact-list"></div>
+      </div>
+    </section>
+
+    <!-- settings -->
+    <section id="view-settings" class="view hidden">
+      <div class="page-wrap">
+        <h2>Customize</h2>
+        <p class="dim">Bring your own key — any provider works. Models use LiteLLM ids, e.g.
+          <code>openrouter/moonshotai/kimi-k2</code>, <code>anthropic/claude-sonnet-5</code>,
+          <code>openai/gpt-5.2</code>, <code>deepseek/deepseek-v4</code>.</p>
+        <form id="settings-form"></form>
+        <div class="settings-actions">
+          <button id="btn-save-settings" class="btn accent">Save</button>
+          <span id="settings-saved" class="dim"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- composer (home + session) -->
+    <footer id="composer" class="composer">
+      <div id="slash-menu" class="slash-menu hidden"></div>
+      <div class="composer-box">
+        <div class="composer-chips">
+          <span class="chip">🖥 Local</span>
+          <button id="chip-dir" class="chip clickable" title="Choose project folder">📁 <span id="chip-dir-name">pick a folder</span></button>
+          <button id="chip-model" class="chip clickable" title="Model for this session">✦ <span id="chip-model-name">model</span></button>
+        </div>
+        <textarea id="input" rows="1" placeholder="Describe a task or ask a question — “/” for commands"></textarea>
+        <div class="composer-row">
+          <span id="status-line" class="status-line"></span>
+          <span id="queue-badge" class="queue-badge hidden"></span>
+          <span id="ctx-ring" class="ctx-ring hidden" title="Context usage of this session">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <circle class="ring-bg" cx="12" cy="12" r="9"></circle>
+              <circle id="ring-fill" class="ring-fill" cx="12" cy="12" r="9"></circle>
+            </svg>
+            <span id="ctx-tokens" class="ctx-tokens"></span>
+          </span>
+          <button id="btn-send" class="send" title="Send">↵</button>
+        </div>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<!-- directory picker modal -->
+<div id="modal-dir" class="modal hidden">
+  <div class="modal-box">
+    <h3>Choose a project folder</h3>
+    <div id="dir-path" class="dir-path"></div>
+    <div id="dir-list" class="dir-list"></div>
+    <div class="modal-actions">
+      <button id="dir-up" class="btn">↑ Up</button>
+      <span style="flex:1"></span>
+      <button id="dir-cancel" class="btn">Cancel</button>
+      <button id="dir-use" class="btn accent">Use this folder</button>
+    </div>
+  </div>
+</div>
+
+<!-- file preview modal -->
+<div id="modal-file" class="modal hidden">
+  <div class="modal-box wide">
+    <h3 id="file-title"></h3>
+    <pre id="file-body" class="file-body"></pre>
+    <div class="modal-actions">
+      <button id="file-close" class="btn">Close</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

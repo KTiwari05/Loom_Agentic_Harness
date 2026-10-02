@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+
+# Loom runtime
+.loom/
+
+# Tooling
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Local agent configuration and scratch experiments
+.claude/
+scratchpad/
+/a.txt
+/out.txt
+/z.txt

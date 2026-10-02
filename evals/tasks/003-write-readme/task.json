@@ -1,0 +1,4 @@
+{
+  "goal": "Create a README.md for this project. Look at the code first to understand what it does. The README must have a title, a one-paragraph description, and an Installation section and a Usage section (as markdown headings).",
+  "check": "python check.py"
+}

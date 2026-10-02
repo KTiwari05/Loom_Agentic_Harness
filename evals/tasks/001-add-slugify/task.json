@@ -1,0 +1,4 @@
+{
+  "goal": "Add a function slugify(text) to utils.py. It must lowercase the text, strip characters that are not letters, digits, spaces, hyphens or underscores, and convert runs of spaces/underscores to single hyphens (no leading/trailing hyphens). Keep the existing titleize function unchanged.",
+  "check": "python check.py"
+}
